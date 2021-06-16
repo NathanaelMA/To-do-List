@@ -14,7 +14,7 @@ class List extends Component {
     isCheck: false,
   };
 
-  rendertodos() {
+  renderTodos() {
     if (this.state.todos.length === 0)
       return <p>Please enter to do list tasks</p>;
 
@@ -55,7 +55,7 @@ class List extends Component {
           <AddCircleIcon />
         </IconButton>
 
-        <div className="listOutput">{this.rendertodos()}</div>
+        <div className="listOutput">{this.renderTodos()}</div>
       </span>
     );
   }
@@ -82,9 +82,10 @@ class List extends Component {
     let arr = this.state.todos;
     let words = this.props.text;
     //return alert(arr.indexOf(todo));
+
     return;
   };
-
+  //adds the user inputted task to the  array
   increaseArr = () => {
     let arr = this.state.todos;
     let words = this.props.text;
