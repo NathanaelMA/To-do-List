@@ -27,11 +27,7 @@ class List extends Component {
             <IconButton id="update" onClick={() => this.boxChecked(todo)}>
               <Checkbox />
             </IconButton>
-            <span
-              className={
-                this.state.isCheck ? "listComplete" : "listNotComplete"
-              }
-            >
+            <span className={this.state.isCheck ? "listComplete" : null}>
               <p1> </p1>
               {todo[0]} <p1> </p1>
               <span className="dateTime">{todo[1]} </span>
