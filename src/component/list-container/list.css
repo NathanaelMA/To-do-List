@@ -12,4 +12,9 @@
 .dateTime {
   color: rgba(0, 0, 0, 0.3);
 }
+
+.listComplete {
+  color: black;
+  text-decoration: line-through;
+}
 /*# sourceMappingURL=list.css.map */
