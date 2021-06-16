@@ -1,15 +1,13 @@
-import React from 'react';
-import Header from "./component/header"
-import Todo from "./component/ToDo"
-import './App.css';
+import React from "react";
+import Header from "./component/header";
+import "./App.css";
+import ListUpdate from "./component/list-container/listUpdate.js";
 
 function App() {
   return (
     <div className="App">
-    <Header/>
-    <div className="todoBody">
-    <Todo/>
-    </div>
+      <Header />
+      <ListUpdate />
     </div>
   );
 }

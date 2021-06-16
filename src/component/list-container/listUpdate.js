@@ -8,7 +8,7 @@ class ListUpdate extends Component {
     super(props);
 
     this.state = {
-      username: "",
+      userText: "",
     };
 
     this.updateInput = this.updateInput.bind(this);
@@ -16,11 +16,11 @@ class ListUpdate extends Component {
   }
 
   updateInput(event) {
-    this.setState({ username: event.target.value });
+    this.setState({ userText: event.target.value });
   }
 
   handleSubmit() {
-    console.log("Your input value is: " + this.state.username);
+    console.log("Your input value is: " + this.state.userText);
   }
   render() {
     return (
@@ -30,7 +30,7 @@ class ListUpdate extends Component {
           placeholder="buy milk, workout, etc"
           onChange={this.updateInput}
         />
-        <List text={this.state.username} />
+        <List text={this.state.userText} />
       </span>
     );
   }
