@@ -2,26 +2,20 @@ import React, { Component } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Checkbox from "@material-ui/core/Checkbox";
+import UpdateIcon from "@material-ui/icons/Update";
 import "./list.css";
 
 class List extends Component {
   state = {
-    todos: [
-      {
-        // text: "",
-        // timestamp: "",
-        // isChecked: false,
-      },
-    ],
+    todos: [],
   };
 
   checkBox = (check) => {
-    if (!this.isChecked) return true;
-    return !this.todos.isChecked;
+    //alert(check);
   };
 
   rendertodos() {
-    if (this.state.todos.length < 2)
+    if (this.state.todos.length === 0)
       return <p>Please enter to do list tasks</p>;
 
     return (
@@ -29,7 +23,7 @@ class List extends Component {
         {" "}
         {this.state.todos.map((todo) => (
           <p
-            key={todo.text}
+            key={todo[0]}
             style={{
               color: "black",
               textDecoration: this.checkBox() ? "Line-through" : null,
@@ -39,12 +33,15 @@ class List extends Component {
             <input
               type="checkbox"
               //checked={this.isChecked}
-              onClick={() => this.checkBox()}
+              onChange={() => this.checkBox(todo[0])}
               id="checkbox"
             />
-            {todo.text}
-            {todo.timestamp} <span className="dateTime"> </span>
-            <IconButton id="delete" onClick={() => this.removeItem(todo.text)}>
+            {todo[0]} <p1> </p1>
+            <span className="dateTime">{todo[1]} </span>
+            <IconButton id="delete">
+              <UpdateIcon />
+            </IconButton>
+            <IconButton id="delete" onClick={() => this.removeItem(todo)}>
               <DeleteIcon />
             </IconButton>{" "}
           </p>
@@ -56,7 +53,7 @@ class List extends Component {
   removeItem = (todo) => {
     let arr = this.state.todos;
     return this.setState({
-      todos: arr.filter((item) => item.text !== todo),
+      todos: arr.filter((item) => item !== todo),
     });
   };
 
@@ -74,15 +71,14 @@ class List extends Component {
   increaseArr = () => {
     let arr = this.state.todos;
     let words = this.props.text;
-    if (arr.includes(words)) return alert("No duplicates allowed");
+    for (let i of arr) {
+      if (i.includes(words)) return alert("No duplicates allowed");
+    }
+
     this.setState({
       todos: [
         ...arr,
-        {
-          text: words,
-          timestamp: new Date().toLocaleString().replace(",", ""),
-          isChecked: false,
-        },
+        [words, new Date().toLocaleString().replace(",", ""), false],
       ],
     });
   };

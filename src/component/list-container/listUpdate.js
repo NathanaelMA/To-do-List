@@ -12,16 +12,12 @@ class ListUpdate extends Component {
     };
 
     this.updateInput = this.updateInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   updateInput(event) {
     this.setState({ userText: event.target.value });
   }
 
-  handleSubmit() {
-    console.log("Your input value is: " + this.state.userText);
-  }
   render() {
     return (
       <span className="addToDo">
