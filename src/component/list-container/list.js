@@ -80,9 +80,7 @@ class List extends Component {
 
   updateItem = (todo) => {
     let arr = this.state.todos;
-    let words = this.props.text;
-    //return alert(arr.indexOf(todo));
-    return;
+    this.removeItem(todo), this.increaseArr();
   };
 
   increaseArr = () => {
