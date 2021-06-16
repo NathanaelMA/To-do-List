@@ -1,0 +1,15 @@
+.pressButton {
+  margin: 1% 0 0 5%;
+  padding: .5%;
+  border-radius: 20%;
+  background-color: #b7f1f1;
+}
+
+.listOutput {
+  margin: 2% 0 5% 35%;
+}
+
+.dateTime {
+  color: rgba(0, 0, 0, 0.3);
+}
+/*# sourceMappingURL=list.css.map */
