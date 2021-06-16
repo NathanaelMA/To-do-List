@@ -6,25 +6,30 @@ import "./list.css";
 
 class List extends Component {
   state = {
-    tags: [],
-    isChecked: false,
+    todos: [
+      {
+        // text: "",
+        // timestamp: "",
+        // isChecked: false,
+      },
+    ],
   };
 
   checkBox = (check) => {
     if (!this.isChecked) return true;
-    return this.setState({ isChecked: !this.isChecked });
+    return !this.todos.isChecked;
   };
 
-  rendertags() {
-    if (this.state.tags.length === 0)
+  rendertodos() {
+    if (this.state.todos.length < 2)
       return <p>Please enter to do list tasks</p>;
 
     return (
       <ul>
         {" "}
-        {this.state.tags.map((tag) => (
+        {this.state.todos.map((todo) => (
           <p
-            key={tag}
+            key={todo.text}
             style={{
               color: "black",
               textDecoration: this.checkBox() ? "Line-through" : null,
@@ -37,12 +42,9 @@ class List extends Component {
               onClick={() => this.checkBox()}
               id="checkbox"
             />
-            {tag}{" "}
-            <span className="dateTime">
-              {" "}
-              {new Date().toLocaleString().replace(",", "")}{" "}
-            </span>
-            <IconButton id="delete" onClick={() => this.removeItem(tag)}>
+            {todo.text}
+            {todo.timestamp} <span className="dateTime"> </span>
+            <IconButton id="delete" onClick={() => this.removeItem(todo.text)}>
               <DeleteIcon />
             </IconButton>{" "}
           </p>
@@ -51,9 +53,11 @@ class List extends Component {
     );
   }
 
-  removeItem = (tag) => {
-    let arr = this.state.tags;
-    return this.setState({ tags: arr.filter((item) => item !== tag) });
+  removeItem = (todo) => {
+    let arr = this.state.todos;
+    return this.setState({
+      todos: arr.filter((item) => item.text !== todo),
+    });
   };
 
   render() {
@@ -62,17 +66,24 @@ class List extends Component {
         <button className="pressButton" onClick={this.increaseArr}>
           ADD
         </button>
-        <div className="listOutput">{this.rendertags()}</div>
+        <div className="listOutput">{this.rendertodos()}</div>
       </span>
     );
   }
 
   increaseArr = () => {
-    let arr = this.state.tags;
+    let arr = this.state.todos;
     let words = this.props.text;
     if (arr.includes(words)) return alert("No duplicates allowed");
     this.setState({
-      tags: [...arr, words],
+      todos: [
+        ...arr,
+        {
+          text: words,
+          timestamp: new Date().toLocaleString().replace(",", ""),
+          isChecked: false,
+        },
+      ],
     });
   };
 }
