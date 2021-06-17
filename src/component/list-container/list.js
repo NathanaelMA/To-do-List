@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-
 import DeleteIcon from "@material-ui/icons/Delete";
 import Checkbox from "@material-ui/core/Checkbox";
 import UpdateIcon from "@material-ui/icons/Update";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import "./list.css";
 import { IconButton } from "@material-ui/core";
 
@@ -66,7 +64,7 @@ class List extends Component {
   //using map to iterate through array, and when desired todoID is found the todo[2] boolean value is negated
   boxChecked = (todoID) => {
     let booln = todoID[2];
-    let checkTodo = this.state.todos.map((todo) => {
+    this.state.todos.map((todo) => {
       if (todo === todoID) {
         todo[2] = !booln;
       }
@@ -87,13 +85,12 @@ class List extends Component {
 
   //using map to find desired todoID then editing that element with whatever is in the text field
   updateItem = (todoID) => {
-    let booln = todoID[0];
-    let updateTodo = this.state.todos.map((todo) => {
+    this.state.todos.map((todo) => {
       if (todo === todoID) {
         todo[0] = this.props.text;
       }
       // this rerenders the page after editing the desired todo element
-      this.setState({
+      return this.setState({
         todos: this.state.todos,
       });
     });
