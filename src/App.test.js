@@ -32,5 +32,3 @@ test("test that new-item-input is an input ", () => {
   const element = screen.getByTestId("new-item-input");
   expect(element.innerHTML.toLowerCase().includes("input")).toBe(true);
 });
-
-export default test;
