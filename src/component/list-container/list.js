@@ -51,7 +51,11 @@ class List extends Component {
   render() {
     return (
       <span>
-        <IconButton id="add" onClick={this.increaseArr}>
+        <IconButton
+          id="add"
+          onClick={this.increaseArr}
+          data-testid="new-item-button"
+        >
           <AddCircleIcon />
         </IconButton>
 
