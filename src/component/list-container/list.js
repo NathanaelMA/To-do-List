@@ -2,9 +2,8 @@ import React, { Component } from "react";
 
 import DeleteIcon from "@material-ui/icons/Delete";
 import Checkbox from "@material-ui/core/Checkbox";
-import UpdateIcon from "@material-ui/icons/Update";
+import Edit from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import "./list.css";
 import { IconButton } from "@material-ui/core";
 
@@ -37,7 +36,7 @@ class List extends Component {
               <span className="dateTime">{todo[1]} </span>
             </span>
             <IconButton id="update" onClick={() => this.updateItem(todo)}>
-              <UpdateIcon />
+              <Edit />
             </IconButton>
             <IconButton id="delete" onClick={() => this.removeItem(todo)}>
               <DeleteIcon />
