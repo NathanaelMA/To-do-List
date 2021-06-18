@@ -1,18 +1,23 @@
 import React, { Component } from "react";
-
 import DeleteIcon from "@material-ui/icons/Delete";
 import Checkbox from "@material-ui/core/Checkbox";
 import Edit from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+
+import Edit from "@material-ui/icons/Edit";
+
 import "./list.css";
 import { IconButton } from "@material-ui/core";
 
+// initialize empty array
 class List extends Component {
   state = {
     todos: [],
-    isCheck: false,
   };
 
+
+  rendertodos() {
+    //if there are no todos to be displayed return statement below
   renderTodos() {
     if (this.state.todos.length === 0)
       return <p>Please enter to do list tasks</p>;
@@ -21,18 +26,17 @@ class List extends Component {
       <ul>
         {" "}
         {this.state.todos.map((todo) => (
+          //the literal text is also the key value. todo[0] -> is what the user enters in the text field
           <p key={todo[0]}>
             {" "}
             <IconButton id="update" onClick={() => this.boxChecked(todo)}>
               <Checkbox />
             </IconButton>
-            <span
-              className={
-                this.state.isCheck ? "listComplete" : "listNotComplete"
-              }
-            >
+            {/* boolean value determines when checkbox is trigger. todo[2] -> is the boolean value for the checkbox */}
+            <span className={todo[2] ? "listComplete" : null}>
               <p1> </p1>
               {todo[0]} <p1> </p1>
+              {/* todo[1] -> is the date-time value */}
               <span className="dateTime">{todo[1]} </span>
             </span>
             <IconButton id="update" onClick={() => this.updateItem(todo)}>
@@ -50,7 +54,11 @@ class List extends Component {
   render() {
     return (
       <span>
-        <IconButton id="add" onClick={this.increaseArr}>
+        <IconButton
+          id="add"
+          onClick={this.increaseArr}
+          data-testid="new-item-button"
+        >
           <AddCircleIcon />
         </IconButton>
 
@@ -58,18 +66,21 @@ class List extends Component {
       </span>
     );
   }
-
+  //using map to iterate through array, and when desired todoID is found the todo[2] boolean value is negated
   boxChecked = (todoID) => {
-    let booln = this.state.isCheck;
-    let updateTodo = this.state.todos.map((todo) => {
+    let booln = todoID[2];
+    this.state.todos.map((todo) => {
       if (todo === todoID) {
-        return this.setState({
-          isCheck: !booln,
-        });
+        todo[2] = !booln;
       }
+      //this rerenders the page after changing the boolean value of given todoID
+      this.setState({
+        todos: this.state.todos,
+      });
     });
   };
 
+  //using the builtin array filter method to delete desired todo element
   removeItem = (todo) => {
     let arr = this.state.todos;
     return this.setState({
@@ -77,6 +88,21 @@ class List extends Component {
     });
   };
 
+
+  //using map to find desired todoID then editing that element with whatever is in the text field
+  updateItem = (todoID) => {
+    this.state.todos.map((todo) => {
+      if (todo === todoID) {
+        todo[0] = this.props.text;
+      }
+      // this rerenders the page after editing the desired todo element
+      return this.setState({
+        todos: this.state.todos,
+      });
+    });
+  };
+
+  //this function is called when add button is triggered
   updateItem = (todo) => {
     let arr = this.state.todos;
     let words = this.props.text;
@@ -85,17 +111,21 @@ class List extends Component {
     return;
   };
   //adds the user inputted task to the  array
+
   increaseArr = () => {
     let arr = this.state.todos;
     let words = this.props.text;
+    //loops through array making sure there are no duplicate elements, otherwise return alert
     for (let i of arr) {
       if (i.includes(words)) return alert("No duplicates allowed!");
     }
+    //if user tries to press add without typing anything, this is triggered
     if (words.length < 1) return alert("Please enter a list item!");
 
+    //renders the paage with new todo elements, each todo element has three properties: text, date-time, boolean value
     this.setState({
       todos: [
-        [words, new Date().toLocaleString().replace(",", ""), true],
+        [words, new Date().toLocaleString().replace(",", ""), false],
         ...arr,
       ],
     });
