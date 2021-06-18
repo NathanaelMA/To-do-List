@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Checkbox from "@material-ui/core/Checkbox";
-import UpdateIcon from "@material-ui/icons/Update";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Edit from "@material-ui/icons/Edit";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+
+import Edit from "@material-ui/icons/Edit";
+
 import "./list.css";
 import { IconButton } from "@material-ui/core";
 
@@ -13,8 +15,10 @@ class List extends Component {
     todos: [],
   };
 
+
   rendertodos() {
     //if there are no todos to be displayed return statement below
+  renderTodos() {
     if (this.state.todos.length === 0)
       return <p>Please enter to do list tasks</p>;
 
@@ -58,7 +62,7 @@ class List extends Component {
           <AddCircleIcon />
         </IconButton>
 
-        <div className="listOutput">{this.rendertodos()}</div>
+        <div className="listOutput">{this.renderTodos()}</div>
       </span>
     );
   }
@@ -84,6 +88,7 @@ class List extends Component {
     });
   };
 
+
   //using map to find desired todoID then editing that element with whatever is in the text field
   updateItem = (todoID) => {
     this.state.todos.map((todo) => {
@@ -98,6 +103,15 @@ class List extends Component {
   };
 
   //this function is called when add button is triggered
+  updateItem = (todo) => {
+    let arr = this.state.todos;
+    let words = this.props.text;
+    //return alert(arr.indexOf(todo));
+
+    return;
+  };
+  //adds the user inputted task to the  array
+
   increaseArr = () => {
     let arr = this.state.todos;
     let words = this.props.text;

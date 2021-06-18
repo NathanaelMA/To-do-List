@@ -3,6 +3,8 @@ import List from "./list";
 import TextField from "@material-ui/core/TextField";
 import "./listUpdate.css";
 
+
+//ListUpdate is taking the functions from List.js
 class ListUpdate extends Component {
   constructor(props) {
     super(props);
