@@ -1,18 +1,24 @@
 import React, { Component } from "react";
-
 import DeleteIcon from "@material-ui/icons/Delete";
 import Checkbox from "@material-ui/core/Checkbox";
 import Edit from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+
+import Edit from "@material-ui/icons/Edit";
+
 import "./list.css";
 import { IconButton } from "@material-ui/core";
 
+// initialize empty array
 class List extends Component {
   state = {
     //todos will be a list of todo items containing text, data and isComplete boolean
     todos: [],
   };
 
+
+  rendertodos() {
+    //if there are no todos to be displayed return statement below
   renderTodos() {
     if (this.state.todos.length === 0)
       return <p>Please enter to do list tasks</p>;
@@ -49,7 +55,11 @@ class List extends Component {
   render() {
     return (
       <span>
-        <IconButton id="add" onClick={this.increaseArr}>
+        <IconButton
+          id="add"
+          onClick={this.increaseArr}
+          data-testid="new-item-button"
+        >
           <AddCircleIcon />
         </IconButton>
         <div className="listOutput">{this.renderTodos()}</div>
@@ -67,6 +77,7 @@ class List extends Component {
     });
   };
 
+  //using the builtin array filter method to delete desired todo element
   removeItem = (todo) => {
     let arr = this.state.todos;
     return this.setState({
@@ -74,6 +85,21 @@ class List extends Component {
     });
   };
 
+
+  //using map to find desired todoID then editing that element with whatever is in the text field
+  updateItem = (todoID) => {
+    this.state.todos.map((todo) => {
+      if (todo === todoID) {
+        todo[0] = this.props.text;
+      }
+      // this rerenders the page after editing the desired todo element
+      return this.setState({
+        todos: this.state.todos,
+      });
+    });
+  };
+
+  //this function is called when add button is triggered
   updateItem = (todo) => {
     this.removeItem(todo);
     let arr = this.state.todos;
@@ -87,11 +113,13 @@ class List extends Component {
   increaseArr = () => {
     let arr = this.state.todos;
     let words = this.props.text;
+    //if user tries to press add without typing anything, this is triggered
     if (words.length < 1) return alert("Please enter a list item!");
+    //loops through array making sure there are no duplicate elements, otherwise return alert
     for (let i of arr) {
       if (i.word.includes(words)) return alert("No duplicates allowed!");
     }
-
+    //renders the paage with new todo elements, each todo element has three properties: text, date-time, boolean value
     this.setState((prevState) => {
       return {
         //adds new list item into todos array and at the top of the list

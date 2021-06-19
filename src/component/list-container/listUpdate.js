@@ -27,6 +27,7 @@ class ListUpdate extends Component {
           label="Add a To-Do!"
           placeholder="buy milk, workout, etc"
           onChange={this.updateInput}
+          data-testid="new-item-input"
         />
         <List text={this.state.userText} />
       </span>
