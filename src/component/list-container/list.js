@@ -12,7 +12,6 @@ import { IconButton } from "@material-ui/core";
 // initialize empty array
 class List extends Component {
   state = {
-    //todos will be a list of todo items containing text, data and isComplete boolean
     todos: [],
   };
 
@@ -26,19 +25,19 @@ class List extends Component {
     return (
       <ul>
         {" "}
-        {this.state.todos.map((todo, index) => (
-          <p key={todo.word}>
+        {this.state.todos.map((todo) => (
+          //the literal text is also the key value. todo[0] -> is what the user enters in the text field
+          <p key={todo[0]}>
             {" "}
-            <IconButton id="update" onClick={() => this.toggleCheck(index)}>
+            <IconButton id="update" onClick={() => this.boxChecked(todo)}>
               <Checkbox />
             </IconButton>
-            <span
-              //strike out text if the task has been completed
-              className={todo.isComplete ? "listComplete" : "listNotComplete"}
-            >
+            {/* boolean value determines when checkbox is trigger. todo[2] -> is the boolean value for the checkbox */}
+            <span className={todo[2] ? "listComplete" : null}>
               <p1> </p1>
-              {todo.word} <p1> </p1>
-              <span className="dateTime">{todo.date} </span>
+              {todo[0]} <p1> </p1>
+              {/* todo[1] -> is the date-time value */}
+              <span className="dateTime">{todo[1]} </span>
             </span>
             <IconButton id="update" onClick={() => this.updateItem(todo)}>
               <Edit />
@@ -62,18 +61,22 @@ class List extends Component {
         >
           <AddCircleIcon />
         </IconButton>
+
         <div className="listOutput">{this.renderTodos()}</div>
       </span>
     );
   }
-
-  //switches the task from complete to incomplete when checkbox is clicked
-  toggleCheck = (index) => {
-    this.setState((prevState) => {
-      prevState.todos[index].isComplete = !prevState.todos[index].isComplete;
-      return {
-        todos: prevState.todos,
-      };
+  //using map to iterate through array, and when desired todoID is found the todo[2] boolean value is negated
+  boxChecked = (todoID) => {
+    let booln = todoID[2];
+    this.state.todos.map((todo) => {
+      if (todo === todoID) {
+        todo[2] = !booln;
+      }
+      //this rerenders the page after changing the boolean value of given todoID
+      this.setState({
+        todos: this.state.todos,
+      });
     });
   };
 
@@ -101,37 +104,30 @@ class List extends Component {
 
   //this function is called when add button is triggered
   updateItem = (todo) => {
-    this.removeItem(todo);
     let arr = this.state.todos;
     let words = this.props.text;
     //return alert(arr.indexOf(todo));
 
     return;
   };
+  //adds the user inputted task to the  array
 
-  //adds the user inputted task to the array
   increaseArr = () => {
     let arr = this.state.todos;
     let words = this.props.text;
-    //if user tries to press add without typing anything, this is triggered
-    if (words.length < 1) return alert("Please enter a list item!");
     //loops through array making sure there are no duplicate elements, otherwise return alert
     for (let i of arr) {
-      if (i.word.includes(words)) return alert("No duplicates allowed!");
+      if (i.includes(words)) return alert("No duplicates allowed!");
     }
+    //if user tries to press add without typing anything, this is triggered
+    if (words.length < 1) return alert("Please enter a list item!");
+
     //renders the paage with new todo elements, each todo element has three properties: text, date-time, boolean value
-    this.setState((prevState) => {
-      return {
-        //adds new list item into todos array and at the top of the list
-        todos: [
-          {
-            word: words,
-            date: new Date().toLocaleString().replace(",", ""),
-            isComplete: false,
-          },
-          ...prevState.todos,
-        ],
-      };
+    this.setState({
+      todos: [
+        [words, new Date().toLocaleString().replace(",", ""), false],
+        ...arr,
+      ],
     });
   };
 }
