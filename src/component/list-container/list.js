@@ -87,15 +87,6 @@ class List extends Component {
     });
   };
 
-  // updateItem = (todo) => {
-  //   this.removeItem(todo);
-  //   let arr = this.state.todos;
-  //   let words = this.props.text;
-  //   //return alert(arr.indexOf(todo));
-
-  //   return;
-  // };
-
   //adds the user inputted task to the array
   increaseArr = () => {
     let arr = this.state.todos;
