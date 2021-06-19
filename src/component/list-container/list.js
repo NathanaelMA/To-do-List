@@ -74,14 +74,27 @@ class List extends Component {
     });
   };
 
-  updateItem = (todo) => {
-    this.removeItem(todo);
-    let arr = this.state.todos;
-    let words = this.props.text;
-    //return alert(arr.indexOf(todo));
-
-    return;
+  //using map to find desired todoID then editing that element with whatever is in the text field
+  updateItem = (todoID) => {
+    this.state.todos.map((todo) => {
+      if (todo === todoID) {
+        todo.word = this.props.text;
+      }
+      // this rerenders the page after editing the desired todo element
+      return this.setState({
+        todos: this.state.todos,
+      });
+    });
   };
+
+  // updateItem = (todo) => {
+  //   this.removeItem(todo);
+  //   let arr = this.state.todos;
+  //   let words = this.props.text;
+  //   //return alert(arr.indexOf(todo));
+
+  //   return;
+  // };
 
   //adds the user inputted task to the array
   increaseArr = () => {
