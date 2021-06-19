@@ -10,7 +10,6 @@ import { IconButton } from "@material-ui/core";
 class List extends Component {
   state = {
     todos: [],
-    isCheck: false,
   };
 
   renderTodos() {
@@ -20,20 +19,18 @@ class List extends Component {
     return (
       <ul>
         {" "}
-        {this.state.todos.map((todo) => (
-          <p key={todo[0]}>
+        {this.state.todos.map((todo, index) => (
+          <p key={todo.word}>
             {" "}
-            <IconButton id="update" onClick={() => this.boxChecked(todo)}>
+            <IconButton id="update" onClick={() => this.toggleCheck(index)}>
               <Checkbox />
             </IconButton>
             <span
-              className={
-                this.state.isCheck ? "listComplete" : "listNotComplete"
-              }
+              className={todo.isComplete ? "listComplete" : "listNotComplete"}
             >
               <p1> </p1>
-              {todo[0]} <p1> </p1>
-              <span className="dateTime">{todo[1]} </span>
+              {todo.word} <p1> </p1>
+              <span className="dateTime">{todo.date} </span>
             </span>
             <IconButton id="update" onClick={() => this.updateItem(todo)}>
               <Edit />
@@ -53,21 +50,16 @@ class List extends Component {
         <IconButton id="add" onClick={this.increaseArr}>
           <AddCircleIcon />
         </IconButton>
-
         <div className="listOutput">{this.renderTodos()}</div>
       </span>
     );
   }
 
-  boxChecked = (todoID) => {
-    let booln = this.state.isCheck;
-    let updateTodo = this.state.todos.map((todo) => {
-      if (todo === todoID) {
-        return this.setState({
-          isCheck: !booln,
-        });
-      }
-    });
+  toggleCheck = (index) => {
+    let todos = this.state.todos;
+    let todoElementToChange = todos[index];
+    todoElementToChange.isComplete = !todoElementToChange.isComplete;
+    this.state.todos = todos;
   };
 
   removeItem = (todo) => {
@@ -78,6 +70,7 @@ class List extends Component {
   };
 
   updateItem = (todo) => {
+    this.removeItem(todo);
     let arr = this.state.todos;
     let words = this.props.text;
     //return alert(arr.indexOf(todo));
@@ -88,16 +81,22 @@ class List extends Component {
   increaseArr = () => {
     let arr = this.state.todos;
     let words = this.props.text;
-    for (let i of arr) {
-      if (i.includes(words)) return alert("No duplicates allowed!");
-    }
     if (words.length < 1) return alert("Please enter a list item!");
+    for (let i of arr) {
+      if (i.word.includes(words)) return alert("No duplicates allowed!");
+    }
 
-    this.setState({
-      todos: [
-        [words, new Date().toLocaleString().replace(",", ""), true],
-        ...arr,
-      ],
+    this.setState((prevState) => {
+      return {
+        todos: [
+          ...prevState.todos,
+          {
+            word: words,
+            date: new Date().toLocaleString().replace(",", ""),
+            isComplete: false,
+          },
+        ],
+      };
     });
   };
 }
