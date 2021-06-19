@@ -9,6 +9,7 @@ import { IconButton } from "@material-ui/core";
 
 class List extends Component {
   state = {
+    //todos will be a list of todo items containing text, data and isComplete boolean
     todos: [],
   };
 
@@ -26,6 +27,7 @@ class List extends Component {
               <Checkbox />
             </IconButton>
             <span
+              //strike out text if the task has been completed
               className={todo.isComplete ? "listComplete" : "listNotComplete"}
             >
               <p1> </p1>
@@ -55,6 +57,7 @@ class List extends Component {
     );
   }
 
+  //switches the task from complete to incomplete when checkbox is clicked
   toggleCheck = (index) => {
     this.setState((prevState) => {
       prevState.todos[index].isComplete = !prevState.todos[index].isComplete;
@@ -79,7 +82,8 @@ class List extends Component {
 
     return;
   };
-  //adds the user inputted task to the  array
+
+  //adds the user inputted task to the array
   increaseArr = () => {
     let arr = this.state.todos;
     let words = this.props.text;
@@ -90,13 +94,14 @@ class List extends Component {
 
     this.setState((prevState) => {
       return {
+        //adds new list item into todos array and at the top of the list
         todos: [
-          ...prevState.todos,
           {
             word: words,
             date: new Date().toLocaleString().replace(",", ""),
             isComplete: false,
           },
+          ...prevState.todos,
         ],
       };
     });
