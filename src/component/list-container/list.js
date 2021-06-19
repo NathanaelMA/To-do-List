@@ -56,10 +56,12 @@ class List extends Component {
   }
 
   toggleCheck = (index) => {
-    let todos = this.state.todos;
-    let todoElementToChange = todos[index];
-    todoElementToChange.isComplete = !todoElementToChange.isComplete;
-    this.state.todos = todos;
+    this.setState((prevState) => {
+      prevState.todos[index].isComplete = !prevState.todos[index].isComplete;
+      return {
+        todos: prevState.todos,
+      };
+    });
   };
 
   removeItem = (todo) => {
