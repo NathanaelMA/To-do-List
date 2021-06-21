@@ -3,8 +3,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Checkbox from "@material-ui/core/Checkbox";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Edit from "@material-ui/icons/Edit";
-import "./list.css";
 import { IconButton } from "@material-ui/core";
+import "./list.css";
 
 // initialize empty array
 class List extends Component {
@@ -102,7 +102,6 @@ class List extends Component {
   };
 
   //adds the user inputted task to the  array
-
   increaseArr = () => {
     let arr = this.state.todos;
     let words = this.props.text;
