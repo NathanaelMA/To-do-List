@@ -88,7 +88,7 @@ class List extends Component {
   updateItem = (todoID) => {
     this.state.todos.map((todo) => {
       if (todo === todoID) {
-        todo.word = this.props.text;
+        todo[0] = this.props.text;
       }
       // this rerenders the page after editing the desired todo element
       return this.setState({
