@@ -9,7 +9,7 @@ export default function Instructions() {
     <div>
       <h3>Todo List Instructions</h3>
       <p>
-        <Checkbox /> - Check complete{" "}
+        <Checkbox /> - Check complete
       </p>
       <p>
         <AddCircleIcon /> - Add new list item

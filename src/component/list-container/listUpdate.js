@@ -32,7 +32,6 @@ class ListUpdate extends Component {
               onChange={this.updateInput}
               data-testid="new-item-input"
             />
-
             <List text={this.state.userText} />
           </div>
         </div>

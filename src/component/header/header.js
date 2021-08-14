@@ -1,7 +1,7 @@
 import React from "react";
 export default function Header() {
   return (
-    <div>
+    <div className="head">
       <h1>What do you need to do?</h1>
       <img
         class="bannerImage"
