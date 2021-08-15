@@ -5,11 +5,14 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Edit from "@material-ui/icons/Edit";
 import { IconButton } from "@material-ui/core";
 import "./list.css";
+import TextField from "@material-ui/core/TextField";
+import Instructions from "./instructions";
 
 // initialize empty array
 class List extends Component {
   state = {
     todos: [],
+    userText: "",
   };
 
   //if there are no todos to be displayed return statement below
@@ -24,7 +27,7 @@ class List extends Component {
           //the literal text is also the key value. todo[0] -> is what the user enters in the text field
           <p key={todo[0]}>
             {" "}
-            <IconButton id="update" onClick={() => this.boxChecked(todo)}>
+            <IconButton id="checkBox" onClick={() => this.boxChecked(todo)}>
               <Checkbox />
             </IconButton>
             {/* boolean value determines when checkbox is trigger. todo[2] -> is the boolean value for the checkbox */}
@@ -41,26 +44,49 @@ class List extends Component {
               <DeleteIcon />
             </IconButton>{" "}
           </p>
-        ))}{" "}
+        ))}
       </ul>
     );
   }
 
   render() {
     return (
-      <span>
-        <IconButton
-          id="add"
-          onClick={this.increaseArr}
-          data-testid="new-item-button"
-        >
-          <AddCircleIcon />
-        </IconButton>
+      <span className="addToDo">
+        <div className="todoBody">
+          <Instructions />
+          <div className="listItems">
+            <TextField
+              label="Add a To-Do!"
+              placeholder="buy milk, workout, etc"
+              onChange={this.updateInput}
+              data-testid="new-item-input"
+              onKeyPress={this._handleKeyPress}
+            />
 
-        <div className="listOutput">{this.renderTodos()}</div>
+            <IconButton
+              id="add"
+              onClick={this.increaseArr}
+              data-testid="new-item-button"
+            >
+              <AddCircleIcon />
+            </IconButton>
+            <div className="listOutput">{this.renderTodos()}</div>
+          </div>
+        </div>
       </span>
     );
   }
+
+  updateInput = (event) => {
+    this.setState({ userText: event.target.value });
+  };
+
+  _handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      this.increaseArr();
+    }
+  };
+
   //using map to iterate through array, and when desired todoID is found the todo[2] boolean value is negated
   boxChecked = (todoID) => {
     let booln = todoID[2];
@@ -86,13 +112,13 @@ class List extends Component {
   //using map to find desired todoID then editing that element with whatever is in the text field
   updateItem = (todoID) => {
     let arr = this.state.todos;
-    let words = this.props.text;
+    let words = this.state.userText;
     for (let i of arr) {
       if (i.includes(words)) return alert("No duplicates allowed!");
     }
     this.state.todos.map((todo) => {
       if (todo === todoID) {
-        todo[0] = this.props.text;
+        todo[0] = this.state.userText;
       }
       // this rerenders the page after editing the desired todo element
       return this.setState({
@@ -104,7 +130,7 @@ class List extends Component {
   //adds the user inputted task to the  array
   increaseArr = () => {
     let arr = this.state.todos;
-    let words = this.props.text;
+    let words = this.state.userText;
     //loops through array making sure there are no duplicate elements, otherwise return alert
     for (let i of arr) {
       if (i.includes(words)) return alert("No duplicates allowed!");

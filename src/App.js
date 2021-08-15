@@ -1,13 +1,13 @@
 import React from "react";
 import Header from "./component/header";
 import "./App.css";
-import ListUpdate from "./component/list-container/listUpdate.js";
+import List from "./component/list-container/list";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <ListUpdate />
+      <List />
     </div>
   );
 }
