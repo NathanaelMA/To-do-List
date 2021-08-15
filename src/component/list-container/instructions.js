@@ -12,7 +12,7 @@ export default function Instructions() {
         <Checkbox /> - Check complete
       </p>
       <p>
-        <AddCircleIcon /> - Add new list item
+        <AddCircleIcon /> - Add new list items
       </p>
       <p>
         <Edit /> - Enter new todo text in textfield, then click edit
